@@ -27,11 +27,11 @@ keep_vars = c(
   "imd_quintile",
   
   # Drinking
-  "drinks_now", "weekmean"
+  "drinks_now", "weekmean", "total_units7_ch"
 )
 
 # The variables that must have complete cases
-complete_vars <- c("age", "sex", "imd_quintile", "year", "psu", "cluster", "drinks_now", "weekmean")
+complete_vars <- c("age", "sex", "imd_quintile", "year", "psu", "cluster")
 
 
 #-----------------------------------------------------
@@ -54,7 +54,7 @@ cleandata <- function(data) {
     
     select_data(
       ages = 11:89,
-      years = 2011:2016,
+      years = 2011:2017,
       
       # variables to retain
       keep_vars = keep_vars,
@@ -73,7 +73,8 @@ data <- combine_years(list(
   cleandata(read_2013(root = root_dir)),
   cleandata(read_2014(root = root_dir)),
   cleandata(read_2015(root = root_dir)),
-  cleandata(read_2016(root = root_dir))
+  cleandata(read_2016(root = root_dir)),
+  cleandata(read_2017(root = root_dir))
 ))
 
 # clean the survey weights
@@ -90,6 +91,10 @@ data[, age_cat := c("11-15",
                     "65-74",
                     "75-89")[findInterval(age, c(-1, 16, 18, 25, 35, 45, 55, 65, 75, 1000))]]
 
-write.table(data, "intermediate_data/HSE_2011_to_2016_alcohol.csv", row.names = FALSE, sep = ",")
+data[age < 16, weekmean := total_units7_ch]
+
+data <- data[!is.na(weekmean)]
+
+write.table(data, "intermediate_data/HSE_2011_to_2017_alcohol.csv", row.names = FALSE, sep = ",")
 
 

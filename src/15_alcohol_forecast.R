@@ -264,9 +264,10 @@ data_b <- data_a[ , .(av = sum(variable * value, na.rm = T) / sum(value, na.rm =
 
 ggplot(data_b[year <= 2025]) + 
   geom_line(aes(x = age, y = av, colour = year, group = year), alpha = .4) + 
+  geom_line(data = data_b[year == 2017], aes(x = age, y = av), colour = "red") +
   facet_wrap(~ imd_quintile + sex, ncol = 2) +
   xlim(11,89) + ylim(0, 30) + 
-  ggtitle("Average alcohol consumption of drinkers (2011-2025)") +
+  ggtitle("Average alcohol consumption of drinkers 2011-2025, based on HSE 2011-2017 (red=2017)") +
   ylab("units / week")
 
 # validate - Colin

@@ -3,7 +3,7 @@ library(data.table)
 library(ggplot2)
 library(fitdistrplus)
 
-data <- fread("intermediate_data/HSE_2011_to_2017_alcohol.csv")
+data <- fread("intermediate_data/HSE_2001_to_2017_alcohol.csv")
 
 data_drinkers <- data[weekmean > 0]
 

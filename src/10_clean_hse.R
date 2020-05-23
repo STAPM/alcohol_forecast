@@ -54,7 +54,7 @@ cleandata <- function(data) {
     
     select_data(
       ages = 11:89,
-      years = 2011:2017,
+      years = 2001:2017,
       
       # variables to retain
       keep_vars = keep_vars,
@@ -68,6 +68,16 @@ cleandata <- function(data) {
 
 # Read and clean each year of data and bind them together in one big dataset
 data <- combine_years(list(
+  cleandata(read_2001(root = root_dir)),
+  cleandata(read_2002(root = root_dir)),
+  cleandata(read_2003(root = root_dir)),
+  cleandata(read_2004(root = root_dir)),
+  cleandata(read_2005(root = root_dir)),
+  cleandata(read_2006(root = root_dir)),
+  cleandata(read_2007(root = root_dir)),
+  cleandata(read_2008(root = root_dir)),
+  cleandata(read_2009(root = root_dir)),
+  cleandata(read_2010(root = root_dir)),
   cleandata(read_2011(root = root_dir)),
   cleandata(read_2012(root = root_dir)),
   cleandata(read_2013(root = root_dir)),
@@ -91,10 +101,11 @@ data[, age_cat := c("11-15",
                     "65-74",
                     "75-89")[findInterval(age, c(-1, 16, 18, 25, 35, 45, 55, 65, 75, 1000))]]
 
+# For children under 16, assume their 7 day drinking represents weekmean
 data[age < 16, weekmean := total_units7_ch]
 
-data <- data[!is.na(weekmean)]
+data <- data[!is.na(drinks_now)]
 
-write.table(data, "intermediate_data/HSE_2011_to_2017_alcohol.csv", row.names = FALSE, sep = ",")
+write.table(data, "intermediate_data/HSE_2001_to_2017_alcohol.csv", row.names = FALSE, sep = ",")
 
 

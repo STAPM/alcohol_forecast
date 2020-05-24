@@ -79,7 +79,7 @@ data_c[ , age_cat := factor(age_cat, c("8-12", "13-15", "16-17", "18-24", "25-34
 data_r[ , age_cat := factor(age_cat, c("8-12", "13-15", "16-17", "18-24", "25-34", "35-44", "45-54", "55-64", "65-74", "75-89"))]
 
 # Plot
-tiff("output/prop_drinkers.tiff", units="in", width=14, height=7, res=300)
+png("output/prop_drinkers.png", units="in", width=14, height=7, res=300)
 ggplot() +
   geom_point(data = data_r, aes(x = year, y = drink_prop, colour = imd_quintile), size = .2, alpha = .3) +
   geom_line(data = data_r, aes(x = year, y = drink_prop, colour = imd_quintile), size = .2, alpha = .25) +

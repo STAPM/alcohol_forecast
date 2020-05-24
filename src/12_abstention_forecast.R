@@ -1,6 +1,7 @@
 
 # The aim of this code is to summarise and forecast the 
 # trends in the proportion of people who drink
+# based on HSE data 2001-2017
 
 # Load packages
 library(data.table)
@@ -43,6 +44,7 @@ data_f <- alc.tools::flexforecastlc(
   family = "binomial"
 )
 
+######
 # Summarise and plot trends in the proportion of people who drink by age category
 data_f[, age_cat := c("8-12",
                       "13-15",
@@ -95,6 +97,50 @@ ggplot() +
        subtitle = "Data from the Health Survey for England 2001-2017", 
        caption = "Trends smoothed with a 3 year moving average and forecast by single years of age and period before being summarised by age category")
 dev.off()
+
+######
+# Summarise cohort age trends
+
+# period
+png("output/prop_drinkers_period.png", units="in", width=14, height=7, res=300)
+ggplot() +
+  geom_line(data = data_f, aes(x = age, y = drink_prop, colour = year, group = year), alpha = .4, size = .2) +
+  geom_line(data = data_f[year == 2017], aes(x = age, y = drink_prop), col = "red", size = .2) +
+  facet_wrap(~ sex + imd_quintile, nrow = 2) +
+  theme_minimal() + 
+  ylab("proportion drinkers") +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "Proportion of people who drank in the last 12 months",
+       subtitle = "Data from the Health Survey for England 2001-2017", 
+       caption = "Trends smoothed with a 3 year moving average and forecast by single years of age and period before being plotted by period")
+dev.off()
+
+# cohort
+
+data_f[ , cohort := year - age]
+
+png("output/prop_drinkers_cohort.png", units="in", width=14, height=7, res=300)
+ggplot() +
+  geom_line(data = data_f[cohort %in% seq(1950, 2020, 10)], aes(x = age, y = drink_prop, colour = cohort, group = cohort), size = .2) +
+  facet_wrap(~ sex + imd_quintile, nrow = 2) +
+  theme_minimal() + 
+  ylab("proportion drinkers") +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "Proportion of people who drank in the last 12 months",
+       subtitle = "Data from the Health Survey for England 2001-2017", 
+       caption = "Trends smoothed with a 3 year moving average and forecast by single years of age and period before being plotted by birth cohort")
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
 
 
 

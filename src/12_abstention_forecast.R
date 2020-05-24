@@ -37,7 +37,7 @@ data_a <- data[ , .(drink_prop = sum(drink_bin * wt_int) / sum(wt_int)),
 data_f <- alc.tools::flexforecastlc(
   data = data_a,
   forecast_var = "drink_prop",
-  time_horizon = 2030,
+  time_horizon = 2025,
   smooth = TRUE,
   smooth_n_age = 3,
   smooth_n_year = 3,

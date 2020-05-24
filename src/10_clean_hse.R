@@ -27,7 +27,7 @@ keep_vars = c(
   "imd_quintile",
   
   # Drinking
-  "drinks_now", "weekmean", "total_units7_ch"
+  "drinks_now", "weekmean", "total_units7_ch", "adrinkweek", "adrinkmonth", "adrinklastweek"
 )
 
 # The variables that must have complete cases
@@ -53,7 +53,7 @@ cleandata <- function(data) {
     alc_sevenday_child %>%
     
     select_data(
-      ages = 11:89,
+      ages = 8:89,
       years = 2001:2017,
       
       # variables to retain
@@ -91,7 +91,8 @@ data <- combine_years(list(
 data <- clean_surveyweights(data)
 
 # remake age categories
-data[, age_cat := c("11-15",
+data[, age_cat := c("8-12",
+                    "13-15",
                     "16-17",
                     "18-24",
                     "25-34",
@@ -99,7 +100,7 @@ data[, age_cat := c("11-15",
                     "45-54",
                     "55-64",
                     "65-74",
-                    "75-89")[findInterval(age, c(-1, 16, 18, 25, 35, 45, 55, 65, 75, 1000))]]
+                    "75-89")[findInterval(age, c(-1, 13, 16, 18, 25, 35, 45, 55, 65, 75, 1000))]]
 
 # For children under 16, assume their 7 day drinking represents weekmean
 data[age < 16, weekmean := total_units7_ch]

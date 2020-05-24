@@ -3,9 +3,15 @@
 # with the version specified
 
 devtools::install_git(
+  "https://gitlab.com/stapm/alc.tools.git",
+  credentials = git2r::cred_user_pass("dosgillespie", getPass::getPass()),
+  build_vignettes = TRUE
+)
+
+devtools::install_git(
   "https://gitlab.com/stapm/hseclean.git",
   credentials = git2r::cred_user_pass("dosgillespie", getPass::getPass()),
-  ref = "1.0.1",
+  ref = "1.0.2",
   build_vignettes = TRUE
 )
 

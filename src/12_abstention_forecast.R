@@ -9,7 +9,7 @@ library(ggplot2)
 library(alc.tools)
 
 # Load data
-data <- fread("intermediate_data/HSE_2001_to_2017_alcohol.csv")
+data <- readRDS("intermediate_data/HSE_2001_to_2017_alcohol.rds")
 
 # Summarise data to give proportion who drink
 data[drinks_now == "non_drinker", drink_bin := 0]
@@ -43,6 +43,10 @@ data_f <- alc.tools::flexforecastlc(
   smooth_n_year = 3,
   family = "binomial"
 )
+
+# Save proportion estimates for use in simulation
+saveRDS(data_f, "intermediate_data/participation_proportions.rds")
+
 
 ######
 # Summarise and plot trends in the proportion of people who drink by age category

@@ -9,7 +9,7 @@ library(ggplot2)
 library(alc.tools)
 
 # Load data
-data <- fread("intermediate_data/HSE_2001_to_2017_alcohol.csv")
+data <- readRDS("intermediate_data/HSE_2001_to_2017_alcohol.rds")
 
 # Filter data to retain people with non-zero average weekly amount drunk
 data_drinkers <- data[weekmean > 0 & year >= 2011]
@@ -104,8 +104,12 @@ ggplot(data_f_shape) +
 # Merge data
 data_f <- merge(data_f_scale, data_f_shape, all = T, by = c("age", "sex", "year", "imd_quintile"))
 
+# Save parameter estimates for use in simulation
+saveRDS(data_f, "intermediate_data/consumption_params.rds")
+
+
 ######
-# Regenerate distributions
+# Regenerate distributions and plot
 
 # For 1 to 300 units consumed per week
 # generate the corresponding probability density from the shape and scale parameters

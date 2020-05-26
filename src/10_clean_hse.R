@@ -107,6 +107,7 @@ data[age < 16, weekmean := total_units7_ch]
 
 data <- data[!is.na(drinks_now)]
 
-write.table(data, "intermediate_data/HSE_2001_to_2017_alcohol.csv", row.names = FALSE, sep = ",")
+# Save data
+saveRDS(data, "intermediate_data/HSE_2001_to_2017_alcohol.rds")
 
 

@@ -15,9 +15,10 @@ participation_proportions <- readRDS("intermediate_data/participation_proportion
 consumption_params <- readRDS("intermediate_data/consumption_params.rds")
 
 # Mortality data
-#mort_data <- readRDS("intermediate_data/alc_mort_data_cause.rds")
+mort_data <- readRDS("intermediate_data/alc_mort_data_cause.rds")
 
 # Run simulation ----------------
+
 
 
 

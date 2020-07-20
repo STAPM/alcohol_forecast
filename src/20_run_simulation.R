@@ -19,7 +19,24 @@ mort_data <- readRDS("intermediate_data/alc_mort_data_cause.rds")
 
 # Run simulation ----------------
 
-
+AlcSim_forecast(
+  survey_data = survey_data,
+  stationary = FALSE,
+  participation_proportions = participation_proportions,
+  consumption_params = consumption_params,
+  dist_name = "weibull",
+  mort_data = mort_data,
+  baseline_year = 2011,
+  baseline_sample_years = 2011,
+  time_horizon = 2025,
+  pop_size = 1e4,
+  pop_data = stapmr::pop_counts,
+  seed_sim = NULL,
+  pop_seed = 1,
+  iter = NULL,
+  write_outputs = "output", # write outputs to the output folder within the project folder
+  label = NULL
+)
 
 
 

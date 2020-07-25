@@ -46,7 +46,7 @@ param_data <- alc.tools::distfit(
   data = data_drinkers,
   var_name = "weekmean",
   width_age = 5,
-  width_year = 3,
+  width_year = 5,
   dist_name = "weibull"
 )
 
@@ -78,7 +78,7 @@ data_f_scale <- alc.tools::flexforecastlc(
   time_horizon = 2025,
   smooth = TRUE,
   smooth_n_age = 5,
-  smooth_n_year = 3,
+  smooth_n_year = 5,
   family = "gaussian"
 )
 
@@ -93,7 +93,7 @@ data_f_shape <- alc.tools::flexforecastlc(
   time_horizon = 2025,
   smooth = TRUE,
   smooth_n_age = 5,
-  smooth_n_year = 3,
+  smooth_n_year = 5,
   family = "gaussian"
 )
 

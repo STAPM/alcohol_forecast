@@ -14,7 +14,7 @@ devtools::install_git(
 devtools::install_git(
   "https://gitlab.com/stapm/hseclean.git",
   credentials = git2r::cred_user_pass("dosgillespie", getPass::getPass()),
-  ref = "1.0.3",
+  ref = "1.1.0",
   build_vignettes = TRUE
 )
 
@@ -35,6 +35,6 @@ devtools::install_git(
 devtools::install_git(
   "https://gitlab.com/stapm/stapmr.git",
   credentials = git2r::cred_user_pass("dosgillespie", getPass::getPass()),
-  ref = "0.5.0",
+  ref = "0.5.1",
   build_vignettes = TRUE
 )

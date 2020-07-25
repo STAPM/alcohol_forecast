@@ -29,15 +29,33 @@ AlcSim_forecast(
   baseline_year = 2011,
   baseline_sample_years = 2011,
   time_horizon = 2025,
-  pop_size = 1e4,
+  pop_size = 1e5, # 100,000 is about the min sample size needed to simulate the fine scale changes in alcohol consumption
   pop_data = stapmr::pop_counts,
   seed_sim = NULL,
-  pop_seed = 1,
+  pop_seed = 3,
   iter = NULL,
   write_outputs = "output", # write outputs to the output folder within the project folder
   label = NULL
 )
 
+
+
+  survey_data = survey_data
+  stationary = FALSE
+  participation_proportions = participation_proportions
+  consumption_params = consumption_params
+  dist_name = "weibull"
+  mort_data = mort_data
+  baseline_year = 2011
+  baseline_sample_years = 2011
+  time_horizon = 2025
+  pop_size = 1e5
+  pop_data = stapmr::pop_counts
+  seed_sim = NULL
+  pop_seed = 3
+  iter = NULL
+  write_outputs = "output"
+  label = NULL
 
 
 

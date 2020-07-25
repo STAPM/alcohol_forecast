@@ -1,6 +1,6 @@
 
 # The aim of this code is to process the Health Survey for England data
-# into the form required to estimate smoking transition probabilities
+# into the form required to estimate drinking trends
 
 # Load the required packages
 library(hseclean)
@@ -27,7 +27,7 @@ keep_vars = c(
   "imd_quintile",
   
   # Drinking
-  "drinks_now", "weekmean", "total_units7_ch", "adrinkweek", "adrinkmonth", "adrinklastweek"
+  "drinks_now", "drink_freq_7d", "weekmean", "total_units7_ch"
 )
 
 # The variables that must have complete cases
@@ -53,7 +53,7 @@ cleandata <- function(data) {
     alc_sevenday_child %>%
     
     select_data(
-      ages = 8:89,
+      ages = 13:89,
       years = 2001:2017,
       
       # variables to retain
@@ -102,10 +102,15 @@ data[, age_cat := c("8-12",
                     "65-74",
                     "75-89")[findInterval(age, c(-1, 13, 16, 18, 25, 35, 45, 55, 65, 75, 1000))]]
 
-# For children under 16, assume their 7 day drinking represents weekmean
-data[age < 16, weekmean := total_units7_ch]
-
 data <- data[!is.na(drinks_now)]
+
+# Impute missing values of weekmean
+data <- alc_impute(data)
+
+# still an issue to check with alc_impute - leaving a few NAs for drinkers in years >= 2011
+# remove them for now
+data <- data[!(year >= 2011 & drinks_now == "drinker" & is.na(weekmean))]
+
 
 # Save data
 saveRDS(data, "intermediate_data/HSE_2001_to_2017_alcohol.rds")

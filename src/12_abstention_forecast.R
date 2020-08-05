@@ -30,6 +30,9 @@ ggplot() +
 #######
 
 # Calculate proportions of people who drink
+check <- data[ , .(drink_prop = sum(drink_bin * wt_int) / sum(wt_int)), by = c("year")]
+check[ , abstainers := 1 - drink_prop]
+
 data_a <- data[ , .(drink_prop = sum(drink_bin * wt_int) / sum(wt_int)), 
                 by = c("year", "age", "sex", "imd_quintile")]
 
@@ -39,10 +42,20 @@ data_f <- alc.tools::flexforecastlc(
   forecast_var = "drink_prop",
   time_horizon = 2025,
   smooth = TRUE,
-  smooth_n_age = 3,
+  smooth_n_age = 7,
   smooth_n_year = 3,
-  family = "binomial"
+  trans = "logit"
 )
+
+par(mfrow = c(1, 2))
+hist(1 - data_a[year == 2011, drink_prop], nclass = 50, col = 2, main = "observed", xlab = "proportion", xlim = c(0,1))
+hist(1 - data_f[year == 2011, drink_prop], nclass = 50, main = "predicted", xlab = "proportion", xlim = c(0,1))
+
+1 - mean(data_a[year == 2011, drink_prop])
+1 - mean(data_f[year == 2011, drink_prop])
+
+1 - median(data_a[year == 2011, drink_prop])
+1 - median(data_f[year == 2011, drink_prop])
 
 # Save proportion estimates for use in simulation
 saveRDS(data_f, "intermediate_data/participation_proportions.rds")

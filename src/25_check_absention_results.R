@@ -1,5 +1,5 @@
 
-# The aim of this code is to do some basic checks on the simulation results
+# The aim of this code is to do some basic checks on the results of the simulation of the proportion of people who drink
 
 # Load packages
 library(data.table)
@@ -81,10 +81,10 @@ data_i[ , age_cat := factor(age_cat, c("8-12", "13-15", "16-17", "18-24", "25-34
 # Plot
 png("output/prop_drinkers_simcheck.png", units="in", width=14, height=7, res=300)
 ggplot() +
-  geom_point(data = data_i, aes(x = year, y = drink_prop, colour = imd_quintile), size = .2, alpha = .7) +
-  geom_line(data = data_i, aes(x = year, y = drink_prop, colour = imd_quintile), size = .2, alpha = .7) +
-  geom_point(data = data_r, aes(x = year, y = drink_prop, colour = imd_quintile), size = .2, alpha = .3) +
-  geom_line(data = data_r, aes(x = year, y = drink_prop, colour = imd_quintile), size = .2, alpha = .25) +
+  geom_point(data = data_i, aes(x = year, y = drink_prop, colour = imd_quintile), size = .2, alpha = .2) +
+  geom_line(data = data_i, aes(x = year, y = drink_prop, colour = imd_quintile), size = .2, alpha = .2) +
+  geom_point(data = data_r, aes(x = year, y = drink_prop, colour = imd_quintile), size = .2, alpha = .8) +
+  geom_line(data = data_r, aes(x = year, y = drink_prop, colour = imd_quintile), size = .2, alpha = .8) +
   #geom_line(data = data_c[year <= 2017], aes(x = year, y = drink_prop, colour = imd_quintile), linetype = 1, size = .3) +
   #geom_line(data = data_c[year > 2017], aes(x = year, y = drink_prop, colour = imd_quintile), linetype = 2, size = .3) +
   facet_wrap(~ sex + age_cat, nrow = 2) +

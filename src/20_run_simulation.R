@@ -22,17 +22,18 @@ mort_data <- readRDS("intermediate_data/alc_mort_data_cause.rds")
 AlcSim_forecast(
   survey_data = survey_data,
   stationary = FALSE,
+  burnin = 1,
   participation_proportions = participation_proportions,
   consumption_params = consumption_params,
-  dist_name = "weibull",
+  dist_name = "gamma",
   mort_data = mort_data,
   baseline_year = 2011,
-  baseline_sample_years = 2011,
+  baseline_sample_years = 2011:2013,
   time_horizon = 2025,
   pop_size = 1e5, # 100,000 is about the min sample size needed to simulate the fine scale changes in alcohol consumption
   pop_data = stapmr::pop_counts,
   seed_sim = NULL,
-  pop_seed = 3,
+  pop_seed = 5,
   iter = NULL,
   write_outputs = "output", # write outputs to the output folder within the project folder
   label = NULL
@@ -40,22 +41,6 @@ AlcSim_forecast(
 
 
 
-  survey_data = survey_data
-  stationary = FALSE
-  participation_proportions = participation_proportions
-  consumption_params = consumption_params
-  dist_name = "weibull"
-  mort_data = mort_data
-  baseline_year = 2011
-  baseline_sample_years = 2011
-  time_horizon = 2025
-  pop_size = 1e5
-  pop_data = stapmr::pop_counts
-  seed_sim = NULL
-  pop_seed = 3
-  iter = NULL
-  write_outputs = "output"
-  label = NULL
 
 
 

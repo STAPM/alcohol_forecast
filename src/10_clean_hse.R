@@ -88,7 +88,7 @@ data <- combine_years(list(
 ))
 
 # clean the survey weights
-data <- clean_surveyweights(data)
+data <- clean_surveyweights(data, pop_data = stapmr::pop_counts)
 
 # remake age categories
 data[, age_cat := c("8-12",
@@ -111,6 +111,11 @@ data <- alc_impute(data)
 # remove them for now
 data <- data[!(year >= 2011 & drinks_now == "drinker" & is.na(weekmean))]
 
+
+#data <- readRDS("intermediate_data/HSE_2001_to_2017_alcohol.rds")
+
+# clean the survey weights
+data <- clean_surveyweights(data, pop_data = stapmr::pop_counts)
 
 # Save data
 saveRDS(data, "intermediate_data/HSE_2001_to_2017_alcohol.rds")
